@@ -1,11 +1,12 @@
 
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { cn } from "@/lib/utils";
 
 type MenuCategory = 'starters' | 'mains' | 'desserts';
 
 interface MenuItem {
-  id: number;
+  id: string;
   name: string;
   description: string;
   price: string;
@@ -16,7 +17,7 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
   {
-    id: 1,
+    id: "truffle-risotto",
     name: "Truffle Infused Risotto",
     description: "Creamy Arborio rice infused with black truffle and topped with aged Parmesan",
     price: "$24",
@@ -25,7 +26,7 @@ const menuItems: MenuItem[] = [
     featured: true
   },
   {
-    id: 2,
+    id: "beef-tenderloin",
     name: "Aged Beef Tenderloin",
     description: "28-day dry-aged beef tenderloin with red wine reduction and seasonal vegetables",
     price: "$42",
@@ -34,7 +35,7 @@ const menuItems: MenuItem[] = [
     featured: true
   },
   {
-    id: 3,
+    id: "chocolate-souffle",
     name: "Chocolate Soufflé",
     description: "Warm chocolate soufflé with vanilla bean ice cream and raspberry coulis",
     price: "$16",
@@ -43,7 +44,7 @@ const menuItems: MenuItem[] = [
     featured: true
   },
   {
-    id: 4,
+    id: "scallops",
     name: "Pan-Seared Scallops",
     description: "Fresh scallops seared to perfection, served with pea purée and crispy pancetta",
     price: "$28",
@@ -52,14 +53,14 @@ const menuItems: MenuItem[] = [
     featured: true
   },
   {
-    id: 5,
+    id: "mushroom-soup",
     name: "Wild Mushroom Soup",
     description: "Velvety soup made with locally foraged mushrooms and white truffle oil",
     price: "$18",
     category: "starters"
   },
   {
-    id: 6,
+    id: "rack-of-lamb",
     name: "Rack of Lamb",
     description: "Herb-crusted rack of lamb with rosemary jus and garlic mashed potatoes",
     price: "$38",
@@ -93,13 +94,17 @@ const FeaturedMenu = () => {
         <h3 className="heading-md text-restaurant-dark-brown mb-8 text-center">Chef's Recommendations</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {featuredItems.map((item) => (
-            <div key={item.id} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+            <Link 
+              key={item.id} 
+              to={`/menu/${item.id}`}
+              className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
+            >
               {item.image && (
                 <div className="h-48 overflow-hidden">
                   <img 
                     src={item.image} 
                     alt={item.name} 
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>
               )}
@@ -110,7 +115,7 @@ const FeaturedMenu = () => {
                 </div>
                 <p className="text-restaurant-medium-brown text-sm">{item.description}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -137,27 +142,28 @@ const FeaturedMenu = () => {
 
         <div className="grid gap-6">
           {filteredItems.map((item) => (
-            <div 
-              key={item.id} 
-              className="flex flex-col md:flex-row bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+            <Link
+              key={item.id}
+              to={`/menu/${item.id}`}
+              className="flex flex-col md:flex-row bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow group"
             >
               {item.image && (
-                <div className="w-full md:w-1/4 mb-4 md:mb-0 md:mr-6">
+                <div className="w-full md:w-1/4 mb-4 md:mb-0 md:mr-6 overflow-hidden rounded-md">
                   <img 
                     src={item.image} 
                     alt={item.name} 
-                    className="w-full h-32 md:h-full object-cover rounded-md"
+                    className="w-full h-32 md:h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
               )}
               <div className={cn("flex-1", !item.image && "md:ml-0")}>
                 <div className="flex justify-between items-start mb-2">
-                  <h4 className="font-serif font-bold text-xl text-restaurant-dark-brown">{item.name}</h4>
+                  <h4 className="font-serif font-bold text-xl text-restaurant-dark-brown group-hover:text-restaurant-accent transition-colors">{item.name}</h4>
                   <span className="text-restaurant-accent font-bold">{item.price}</span>
                 </div>
                 <p className="text-restaurant-medium-brown">{item.description}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 

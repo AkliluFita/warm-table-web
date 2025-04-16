@@ -1,6 +1,6 @@
-
 import { useState } from 'react';
 import { X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface GalleryImage {
   id: number;
@@ -93,7 +93,7 @@ const Gallery = () => {
       </div>
 
       <div className="mt-10 text-center">
-        <a href="#gallery" className="btn-primary">View More</a>
+        <Link to="/gallery" className="btn-primary">View More</Link>
       </div>
 
       {selectedImage && (
